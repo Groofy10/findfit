@@ -126,6 +126,24 @@ const FindTalent = () => {
                   <Progress percent={progressPercent} size="small" />
                 </div>
               )}
+              <label
+                class="block mb-2 text-sm font-medium mt-5 text-gray-900 dark:text-white"
+                for="file_input"
+              >
+                Upload CV
+              </label>
+
+              <input
+                className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                id="file_input"
+                type="file"
+              />
+              <p
+                class="mt-1 text-sm text-gray-500 dark:text-gray-300"
+                id="file_input_help"
+              >
+                Upload a ZIP file containing all talent CV in PDF format.
+              </p>
 
               <SubmitButton disabled={mutation.isPending}>Submit</SubmitButton>
             </form>

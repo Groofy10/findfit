@@ -71,7 +71,7 @@ export default function JobCard({
         )}
 
         {applied && (
-          <Button color="warning" className="text-white" size="sm" disabled>
+          <Button color="primary" className="text-white" size="sm" disabled>
             Pending
           </Button>
         )}

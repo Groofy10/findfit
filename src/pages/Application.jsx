@@ -71,7 +71,7 @@ const Application = () => {
           </form>
 
           <div className="flex gap-4">
-            <div className="flex w-full py-2 gap-5 flex-wrap grid grid-cols-3 justify-center ">
+            <div className="flex w-full py-2 gap-5 flex-wrap grid grid-cols-2 justify-center ">
               {data &&
                 data.jobLists.map((jobList, index) => (
                   <div className="w-full shadow-md gap-5">
@@ -92,8 +92,8 @@ const Application = () => {
               You have no Job Applications
             </p>
             <Button
-              color="warning"
-              className="text-white w-[50%] m-auto"
+              color="primary"
+              className="text-qhite w-[50%] m-auto"
               onClick={() => navigate("/find-jobs")}
             >
               Find your job
