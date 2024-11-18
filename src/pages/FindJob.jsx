@@ -22,6 +22,7 @@ const FindJob = () => {
 
   const {
     data: pdf,
+    refetch,
     isLoading: isLoadingCV,
     isError: isErrorCV,
   } = useQuery({
@@ -96,6 +97,32 @@ const FindJob = () => {
     setAnswers(updatedAnswers);
   };
 
+  const recommendations = [
+    {
+      jobTitle: "Front End Developer",
+      confidence: 85,
+      skills: "JavaScript, React, HTML, CSS",
+    },
+    {
+      jobTitle: "Data Analyst",
+      confidence: 72,
+      skills: "SQL, Python, Data Visualization",
+    },
+    {
+      jobTitle: "UX Designer",
+      confidence: 48,
+      skills: "Figma, User Research, Wireframing",
+    },
+  ];
+
+  const getConfidenceColor = (confidence) => {
+    if (confidence >= 75)
+      return { textColor: "text-green-600", borderColor: "border-green-500" };
+    if (confidence >= 50)
+      return { textColor: "text-yellow-500", borderColor: "border-yellow-500" };
+    return { textColor: "text-red-600", borderColor: "border-red-500" };
+  };
+
   return (
     <div className="justify-content mx-auto my-5 flex flex-col w-[90%] md:p-11 p-4 rounded-lg md:gap-10 bg-white h-full gap-4">
       {step === 1 && (
@@ -156,22 +183,40 @@ const FindJob = () => {
 
       {step === 3 && (
         <div className="flex flex-col gap-4">
-          <div className="flex flex-col p-10 gap-2 overflow-y-auto shadow-md bg-white rounded-lg">
-            <h1 className="lg:text-xl md:text-xl font-bold text-center text-gray-900">
+          <div className="flex flex-col p-10 gap-6 overflow-y-auto shadow-lg bg-gradient-to-r from-blue-100 via-purple-100 to-gray-100 rounded-lg">
+            <h1 className="lg:text-2xl md:text-xl font-bold text-center text-gray-900 mb-6">
               Result Analysis
             </h1>
-            <div className="flex justify-center items-center mt-2">
-              <div className="text-center">
-                <AiOutlineHourglass className="h-12 w-12 text-gray-400 mx-auto animate-pulse" />
-                <p className="text-lg text-gray-500 mt-4">
-                  This feature is coming soon!
-                </p>
-                <p className="text-sm text-gray-400 mt-2">
-                  We are working hard to bring this feature to you. Stay tuned!
-                </p>
-              </div>
+            <div className="space-y-6">
+              {recommendations.map((rec, index) => {
+                const { textColor, borderColor } = getConfidenceColor(
+                  rec.confidence
+                );
+                return (
+                  <div
+                    key={index}
+                    className={`p-6 border-2 ${borderColor} rounded-lg shadow-xl bg-white transform hover:scale-[1.01] hover:shadow-xl transition-all duration-300`}
+                  >
+                    <div className="flex items-center justify-between mb-4">
+                      <h2 className="font-semibold text-xl text-gray-800">
+                        {rec.jobTitle}
+                      </h2>
+                    </div>
+                    <p className="text-gray-700">
+                      Confidence:{" "}
+                      <span className={`${textColor} font-semibold`}>
+                        {rec.confidence}%
+                      </span>
+                    </p>
+                    <p className="text-gray-700">
+                      Skills to Develop: {rec.skills}
+                    </p>
+                  </div>
+                );
+              })}
             </div>
           </div>
+
           <div className="flex w-full py-4 gap-5 flex-wrap justify-center">
             {data && data.recommendation === true ? (
               <h1 className="lg:text-xl md:text-xl font-bold text-center text-blue-700 mb-5">
